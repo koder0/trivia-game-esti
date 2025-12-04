@@ -37,7 +37,7 @@ const App = () => {
     <div>
       {trivias.length === 0 && <h1>Töltés...</h1>}
       <h1>Score: {index} / {score}</h1>
-      {trivias.length > 0 && <Trivia trivia={trivias[index]} nextQuestion={nextQuestion} {...trivias[index]} />}
+      {trivias.length > 0 && <Trivia key={index} trivia={trivias[index]} nextQuestion={nextQuestion} {...trivias[index]} />}
     </div>
   )
 }

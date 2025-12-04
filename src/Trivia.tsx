@@ -10,14 +10,21 @@ const Trivia = ({nextQuestion, trivia}: {trivia: TriviaType, nextQuestion: (prev
     return (
         <div>
             <div dangerouslySetInnerHTML={{ __html: trivia.question }}></div>
-            {mixedList.map(answer => <button
-            onClick={()=>{
+            {mixedList.map(answer => <button 
+
+            onClick={(event)=>{
+                const btn = event.target as HTMLButtonElement
+
                 if(answer === trivia.correct_answer){
-                    alert("Helyes!")
-                    nextQuestion(true)
+                    btn.classList.add("success")
+                    setTimeout(()=>{
+                        nextQuestion(true)
+                    },2000)
                 }else{
-                    alert("Hibás!")
-                    nextQuestion(false)
+                    btn.classList.add("fail")
+                    setTimeout(()=>{
+                        nextQuestion(false)
+                    },2000)
                 }
                 
             }}
