@@ -1,24 +1,27 @@
 import type { TriviaType } from "./App"
 
-function randomNekem(a:string,b:string){
+function randomNekem(){
     return Math.floor(Math.random()*3 - 1)
 }
 
-const Trivia = (props: TriviaType ) => {
-    const mixedList = [props.correct_answer, ...props.incorrect_answers].sort(randomNekem)
+const Trivia = ({nextQuestion, trivia}: {trivia: TriviaType, nextQuestion: (prevIsSuccess:boolean) => void} ) => {
+    const mixedList = [trivia.correct_answer, ...trivia.incorrect_answers].sort(randomNekem)
 
     return (
         <div>
-            <div dangerouslySetInnerHTML={{ __html: props.question }}></div>
-            {mixedList.map(i => <button
+            <div dangerouslySetInnerHTML={{ __html: trivia.question }}></div>
+            {mixedList.map(answer => <button
             onClick={()=>{
-                if(i === props.correct_answer){
+                if(answer === trivia.correct_answer){
                     alert("Helyes!")
+                    nextQuestion(true)
                 }else{
                     alert("Hibás!")
+                    nextQuestion(false)
                 }
+                
             }}
-            >{i}</button>)}
+            >{answer}</button>)}
         </div>
     )
 }
